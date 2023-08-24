@@ -12,24 +12,18 @@ from langchain.llms import OpenAI
 from transformers import AutoProcessor
 import scipy
 from bark import SAMPLE_RATE, generate_audio, preload_models
+import generate_long_form_speech as F
 
 
 def prepare_output_speech(text_prompt):
-    processor = AutoProcessor.from_pretrained("suno/bark-small")
-    bark_model = AutoModel.from_pretrained("suno/bark-small")
-    temp_text = [text_prompt]
-    print(temp_text)
-    print(type(temp_text))
-    print(type(temp_text[0]))
-
-    inputs = processor(
-        text=[text_prompt],
-        return_tensors="pt",
-    )
-
-    speech_values = bark_model.generate(**inputs, do_sample=True)
-    scipy.io.wavfile.write("translated_voice.wav", rate=SAMPLE_RATE, data=speech_values.cpu().numpy().squeeze())
-
+    # replace any special punctuations with english one for nltk library (This is in consideration of khadi pai in
+    # hindi)
+    text_prompt = text_prompt.replace("\n", " ").strip().replace("।", ".")
+    try:
+        F.generate_speech(script=text_prompt)
+    except Exception as e:
+        print("An error occurred while generating speech")
+        raise e
     return True
 
 

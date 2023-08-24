@@ -2,6 +2,13 @@
 
 This Python script demonstrates a logical process for transcribing and translating audio content from a YouTube video. It follows a series of steps to achieve the goal of creating a translated version of the video with synchronized audio. The script utilizes several libraries and tools to achieve this.
 There are two .py files, one which does video translation without suno/bark and one with does with suno/bark
+
+# For Bark:
+
+The script `generate_long_form_speech.py` helps to do the actual generation.
+Do not do `pip install bark`, refer https://github.com/suno-ai/bark for precise details if needed.
+You may also use the `requirements.txt` file provided here
+
 ## Logical Breakdown: Speech-to-Text and Text-to-Speech Translation
 
 ### Step 1: Speech-to-Text Conversion
